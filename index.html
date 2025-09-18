@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Twin Fit | Smart BMI Prevention</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+    <!-- Header -->
+    <header class="bg-blue-600 text-white p-4 shadow fixed top-0 w-full z-10">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">Twin Fit</h1>
+            <nav>
+                <a href="#home" class="mx-2 hover:underline">Home</a>
+                <a href="#features" class="mx-2 hover:underline">Features</a>
+                <a href="#calculator" class="mx-2 hover:underline">BMI Calculator</a>
+                <a href="#history" class="mx-2 hover:underline">History</a>
+                <a href="#contact" class="mx-2 hover:underline">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="text-center p-20 pt-32">
+        <h2 class="text-4xl font-bold mb-4">Twin Fit</h2>
+        <p class="text-lg mb-6">Smart BMI Prevention for a Healthier Life</p>
+        <a href="#userDetails" class="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700">Get Started</a>
+    </section>
+
+    <!-- User Details Section -->
+    <section id="userDetails" class="container mx-auto p-8">
+        <h3 class="text-3xl font-semibold text-center mb-6">Enter Your Details</h3>
+        <div class="max-w-md mx-auto bg-white p-6 rounded shadow">
+            <label class="block mb-2">Full Name:</label>
+            <input id="userName" type="text" class="w-full border p-2 mb-4 rounded" placeholder="Your Name" required>
+
+            <label class="block mb-2">Age:</label>
+            <input id="userAge" type="number" class="w-full border p-2 mb-4 rounded" placeholder="Your Age" required>
+
+            <label class="block mb-2">Gender:</label>
+            <select id="userGender" class="w-full border p-2 mb-4 rounded" required>
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <label class="block mb-2">Email:</label>
+            <input id="userEmail" type="email" class="w-full border p-2 mb-4 rounded" placeholder="Your Email" required>
+
+            <button onclick="saveUserDetails()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Save Details</button>
+
+            <p id="userGreeting" class="mt-4 text-center font-semibold"></p>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="container mx-auto p-8">
+        <h3 class="text-3xl font-semibold mb-6 text-center">Features</h3>
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="bg-white p-6 rounded shadow">
+                <h4 class="font-bold text-xl mb-2">Real-Time BMI Calculation</h4>
+                <p>Calculate BMI instantly with helpful health suggestions.</p>
+            </div>
+            <div class="bg-white p-6 rounded shadow">
+                <h4 class="font-bold text-xl mb-2">Health Tips</h4>
+                <p>Receive personalized tips to maintain or improve your BMI.</p>
+            </div>
+            <div class="bg-white p-6 rounded shadow">
+                <h4 class="font-bold text-xl mb-2">Track History</h4>
+                <p>View your BMI history stored in your browser to track your progress.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- BMI Calculator -->
+    <section id="calculator" class="bg-gray-100 p-8">
+        <h3 class="text-3xl font-semibold text-center mb-6">BMI Calculator</h3>
+        <div class="max-w-md mx-auto bg-white p-6 rounded shadow">
+            <label class="block mb-2">Height (cm):</label>
+            <input id="height" type="number" class="w-full border p-2 mb-4 rounded" placeholder="Enter height in cm">
+
+            <label class="block mb-2">Weight (kg):</label>
+            <input id="weight" type="number" class="w-full border p-2 mb-4 rounded" placeholder="Enter weight in kg">
+
+            <div class="flex justify-between">
+                <button onclick="calculateBMI()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Calculate BMI</button>
+                <button onclick="resetCalculator()" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">Reset</button>
+            </div>
+
+            <p id="result" class="mt-4 text-center font-semibold"></p>
+            <p id="recommendation" class="mt-2 text-center text-green-700 font-medium"></p>
+        </div>
+    </section>
+
+    <!-- BMI History Section -->
+    <section id="history" class="container mx-auto p-8">
+        <h3 class="text-3xl font-semibold mb-6 text-center">Your BMI History</h3>
+
+        <div id="userInfo" class="bg-white p-6 rounded shadow max-w-md mx-auto mb-6 text-center">
+            <h4 class="text-xl font-semibold">Welcome, <span id="displayName">Guest</span></h4>
+            <p>Age: <span id="displayAge">-</span></p>
+            <p>Gender: <span id="displayGender">-</span></p>
+            <p>Email: <span id="displayEmail">-</span></p>
+        </div>
+
+        <div id="historyList" class="bg-white p-6 rounded shadow max-w-md mx-auto">
+            <p id="historyEmpty" class="text-center text-gray-500">No history yet.</p>
+            <ul id="historyEntries" class="list-disc pl-5"></ul>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="container mx-auto p-8">
+        <h3 class="text-3xl font-semibold mb-6 text-center">Contact Us</h3>
+        <p class="text-center">Email: support@twinfit.com</p>
+        <p class="text-center">Phone: +91 98765 43210</p>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-blue-600 text-white text-center p-4 mt-10">
+        © 2025 Twin Fit - Smart BMI Prevention
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        function saveUserDetails() {
+            const name = document.getElementById('userName').value.trim();
+            const age = document.getElementById('userAge').value.trim();
+            const gender = document.getElementById('userGender').value.trim();
+            const email = document.getElementById('userEmail').value.trim();
+
+            if (!name || !age || !gender || !email) {
+                alert('Please fill all fields.');
+                return;
+            }
+
+            const userDetails = { name, age, gender, email };
+            localStorage.setItem('userDetails', JSON.stringify(userDetails));
+
+            document.getElementById('userGreeting').innerText = `Hello ${name}, your details are saved.`;
+            displayUserDetails();
+        }
+
+        function displayUserDetails() {
+            const user = JSON.parse(localStorage.getItem('userDetails'));
+
+            if (user) {
+                document.getElementById('displayName').innerText = user.name;
+                document.getElementById('displayAge').innerText = user.age;
+                document.getElementById('displayGender').innerText = user.gender;
+                document.getElementById('displayEmail').innerText = user.email;
+            }
+        }
+
+        function calculateBMI() {
+            const user = JSON.parse(localStorage.getItem('userDetails'));
+            if (!user) {
+                alert('Please enter your details first.');
+                return;
+            }
+
+            const height = parseFloat(document.getElementById('height').value) / 100;
+            const weight = parseFloat(document.getElementById('weight').value);
+
+            if (!height || !weight || height <= 0 || weight <= 0) {
+                document.getElementById('result').innerText = 'Please enter valid values.';
+                document.getElementById('recommendation').innerText = '';
+                return;
+            }
+
+            const bmi = (weight / (height * height)).toFixed(2);
+            let category = '';
+            let recommendation = '';
+
+            if (bmi < 18.5) {
+                category = 'Underweight';
+                recommendation = 'Consider a balanced diet with more calories.';
+            } else if (bmi < 25) {
+                category = 'Normal weight';
+                recommendation = 'Great job! Keep maintaining your healthy lifestyle.';
+            } else if (bmi < 30) {
+                category = 'Overweight';
+                recommendation = 'Try regular exercise and a balanced diet.';
+            } else {
+                category = 'Obese';
+                recommendation = 'Consult a healthcare professional for personalized advice.';
+            }
+
+            document.getElementById('result').innerText = `Your BMI is ${bmi} (${category})`;
+            document.getElementById('recommendation').innerText = recommendation;
+
+            const entry = `${new Date().toLocaleString()} - ${user.name} (${user.gender}): BMI ${bmi} (${category})`;
+            let history = JSON.parse(localStorage.getItem('bmiHistory')) || [];
+            history.unshift(entry);
+            if (history.length > 10) history.pop();
+            localStorage.setItem('bmiHistory', JSON.stringify(history));
+            updateHistory();
+        }
+
+        function updateHistory() {
+            const historyEntries = document.getElementById('historyEntries');
+            const historyEmpty = document.getElementById('historyEmpty');
+            const history = JSON.parse(localStorage.getItem('bmiHistory')) || [];
+
+            historyEntries.innerHTML = '';
+
+            if (history.length === 0) {
+                historyEmpty.style.display = 'block';
+            } else {
+                historyEmpty.style.display = 'none';
+                history.forEach(entry => {
+                    const li = document.createElement('li');
+                    li.textContent = entry;
+                    historyEntries.appendChild(li);
+                });
+            }
+        }
+
+        function resetCalculator() {
+            document.getElementById('height').value = '';
+            document.getElementById('weight').value = '';
+            document.getElementById('result').innerText = '';
+            document.getElementById('recommendation').innerText = '';
+        }
+
+        window.onload = () => {
+            displayUserDetails();
+            updateHistory();
+        };
+    </script>
+
+</body>
+
+</html>
